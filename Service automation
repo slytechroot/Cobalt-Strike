@@ -1,0 +1,15 @@
+Cobalt Strike is a post-exploitation framework and often requires customization to meet your specific needs. This flexibility is one of the most powerful features of Cobalt Strike. While this is great, some may find it challenging to quickly set up a teamserver. Even if you are only doing quick tests, consider building an automated deployment process using something as simple as a bash script or something more complex based on tools like Ansible or Terraform. 
+
+References:
+
+https://cobaltstrike.com
+https://github.com/vestjoe/cobaltstrike_services
+https://hstechdocs.helpsystems.com/manuals/cobaltstrike/current/userguide/content/topics/agressor_script.htm
+https://github.com/0xZDH/redirect.rules
+https://github.com/threatexpress/random_c2_profile
+https://github.com/bluscreenofjeff/Red-Team-Infrastructure-Wiki
+https://www.mdsec.co.uk/2020/02/testing-your-redteam-infrastructure/
+https://posts.specterops.io/designing-effective-covert-red-team-attack-infrastructure-767d4289af43
+https://rastamouse.me/infrastructure-as-code-terraform-ansible/
+https://www.ired.team/offensive-security/red-team-infrastructure/automating-red-team-infrastructure-with-terraform
+https://www.blackhillsinfosec.com/using-cloudfront-to-relay-cobalt-strike-traffic/
