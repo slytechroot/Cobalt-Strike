@@ -1,0 +1,8 @@
+Artifact Kit vs Resource Kit
+
+Artifact Kit is for modifying the compiled artifacts in the format of executables and dll files.
+
+While the Resource Kit for modifying compiled artifacts in the format of powershell scripts.
+
+Modifying variable names can sometimes reduce or eliminate detection (video from 2021), where ThreatCheck.exe does not detect any exploit from the Windows Defender end. 
+
