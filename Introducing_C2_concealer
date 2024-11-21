@@ -1,10 +1,11 @@
 Introducing C2concealer: a C2 Malleable Profile Generator for Cobalt Strike
 
 C2concealer is a python3 command-line tool that generates c2 malleable profiles for use with Cobalt Strike.
+
+Looking to get up and running quick? Code is available here.
 https://github.com/rsmudge/Malleable-C2-Profiles
 https://github.com/RedSiege/C2concealer
 
-Looking to get up and running quick? Code is available here.
 C2concealer: what's the story?
 
 Red team assessments and penetration tests involve a ton of moving parts and are often severely limited by time constraints. While we believe infrastructure setup is one of the most important aspects of any engagement, it's easy to breeze right through it and re-use past configurations. When it comes to c2 malleable profiles, or the file we use to define our Indicators of Compromise, it's very tempting to just re-use the same profile, test after test.
