@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title  -->
+    <title>Customizing C2Concealer - Part 1</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="https://fortynorthsecurity.com/static/img/core-img/favicon.ico">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="https://fortynorthsecurity.com/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/modal.css">
+
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/6280473.js"></script>
+    <link rel="canonical" href="https://fortynorthsecurity.com/blog/customizing-c2concealer/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://fortynorthsecurity.com/blog/customizing-c2concealer/amp/" />
+    
+    <meta property="og:site_name" content="FortyNorth Security Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Customizing C2Concealer - Part 1" />
+    <meta property="og:description" content="About a year ago, we publicly released our C2 malleable profile generator for Cobalt Strike, C2Concealer. You can read the initial blog post here. In the GitHub Readme page and the initial blog post, we included some information on how to modify C2Concealer to change the default values used to" />
+    <meta property="og:url" content="https://fortynorthsecurity.com/blog/customizing-c2concealer/" />
+    <meta property="og:image" content="https://fortynorthsecurity.com/blog/content/images/2021/07/FortyNorth-Blog-Posts.png" />
+    <meta property="article:published_time" content="2021-07-12T13:00:00.000Z" />
+    <meta property="article:modified_time" content="2021-08-02T12:33:23.000Z" />
+    <meta property="article:tag" content="Cobalt Strike" />
+    <meta property="article:tag" content="cobalt strike profile generator" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/FortyNorthSec" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Customizing C2Concealer - Part 1" />
+    <meta name="twitter:description" content="About a year ago, we publicly released our C2 malleable profile generator for Cobalt Strike, C2Concealer. You can read the initial blog post here. In the GitHub Readme page and the initial blog post, we included some information on how to modify C2Concealer to change the default values used to" />
+    <meta name="twitter:url" content="https://fortynorthsecurity.com/blog/customizing-c2concealer/" />
+    <meta name="twitter:image" content="https://fortynorthsecurity.com/blog/content/images/2021/07/FortyNorth-Blog-Posts-2.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Joe Leon" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Cobalt Strike, cobalt strike profile generator" />
+    <meta name="twitter:site" content="@FortyNorthSec" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="512" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "FortyNorth Security Blog",
+        "url": "https://fortynorthsecurity.com/blog/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://static.ghost.org/v1.0.0/images/ghost-logo.svg"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Joe Leon",
+        "url": "https://fortynorthsecurity.com/blog/author/fortynorth/",
+        "sameAs": []
+    },
+    "headline": "Customizing C2Concealer - Part 1",
+    "url": "https://fortynorthsecurity.com/blog/customizing-c2concealer/",
+    "datePublished": "2021-07-12T13:00:00.000Z",
+    "dateModified": "2021-08-02T12:33:23.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://fortynorthsecurity.com/blog/content/images/2021/07/FortyNorth-Blog-Posts.png",
+        "width": 1024,
+        "height": 512
+    },
+    "keywords": "Cobalt Strike, cobalt strike profile generator",
+    "description": "About a year ago, we publicly released our C2 malleable profile generator for\nCobalt Strike, C2Concealer [https://github.com/FortyNorthSecurity/C2concealer].\nYou can read the initial blog post here\n[https://fortynorthsecurity.com/blog/introducing-c2concealer/].\n\nIn the GitHub Readme page and the initial blog post, we included some\ninformation on how to modify C2Concealer to change the default values used to\nbuild the malleable profiles. However, while teaching our Intrusion Operations\ncourse [ht",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://fortynorthsecurity.com/blog/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 4.48" />
+    <link rel="alternate" type="application/rss+xml" title="FortyNorth Security Blog" href="https://fortynorthsecurity.com/blog/rss/" />
+    <script defer src="https://unpkg.com/@tryghost/portal@~1.22.0/umd/portal.min.js" data-ghost="https://fortynorthsecurity.com/blog/" crossorigin="anonymous"></script><style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style>
+    <script defer src="/blog/public/cards.min.js?v=8ca580996d"></script><style>:root {--ghost-accent-color: #15171A;}</style>
+    <link rel="stylesheet" type="text/css" href="/blog/public/cards.min.css?v=8ca580996d">
+
+</head>
+
+<body class="apland-khulna-version post-template tag-cobalt-strike tag-cobalt-strike-profile-generator">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="apland-load"></div>
+    </div>
+
+    <!-- ***** Header Start ***** -->
+    <header class="header_area white-nav">
+        <div class="main_header_area">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <nav class="classy-navbar justify-content-between" id="aplandNav">
+
+                        <!-- Logo -->
+                        <a class="nav-brand" href="/"><img src="https://fortynorthsecurity.com/static/img/fortynorth-img/fn-white-orange.png" style="max-width: 250px !important" alt=""></a>
+			<!-- 
+                        <a class="nav-brand" href="https://fortynorthsecurity.com/"><span style='color: #2f5bea; font-weight: 400; letter-spacing: -1px'>FortyNorth</span> <span style='font-weight: 500; color: white !important'>Security</span></a>                                      
+			-->
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul id="corenav">
+                                    <li><a href="" style="pointer-events: none">Assessments</a>
+                                        <ul class="dropdown">
+                                            <li><a href="https://fortynorthsecurity.com/red-team-assessments">Red Team Assessments</a></li>
+                                            <li><a href="https://fortynorthsecurity.com/penetration-testing">Penetration Testing</a></li>
+                                            <li><a href="https://fortynorthsecurity.com/web-application-testing">Web Application Testing</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="" style="pointer-events: none">Training</a>
+                                        <ul class="dropdown">
+                                            <li><a href="https://fortynorthsecurity.com/public-training">Public Training</a></li>
+                                            <li><a href="https://fortynorthsecurity.com/private-training">Private Corporate Training</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="https://fortynorthsecurity.com/blog">Blog</a></li>
+                                    <li><a href="https://fortynorthsecurity.com/our-story">Our Story</a></li>
+                                    <li><a href="https://fortynorthsecurity.com/contact">Contact</a></li>
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header End ***** -->
+
+        <!-- ***** Popup Start ***** -->
+    <div id="open-modal" class="modal-window">
+        <div>
+            <a href="#" title="Close" class="modal-close">Close</a>
+            <h1>FortyNorth acquired by Red Siege!<h1>
+            <p>We are happy to announce that FortyNorth Security has been acquired by Red Siege! Riskatto remains a separate product owned and operated by the creators of the product. Details on the announcment can be found <a href="https://redsiege.com/blog/2023/06/red-siege-acquires-fortynorth-security/">here</a>.</p>
+            <div><small>Check out 👇</small></div>
+	    <p><a href="https://redsiege.com">Red Siege<br/><img src="https://redsiege.com/wp-content/uploads/2023/06/redsiege-logo-black-850-187.png" /></a></p>
+	    <p><a href="https://riskatto.com">Riskatto<br/><img src="https://fortynorthsecurity.com/static/img/fortynorth-img/riskatto_logo_purple.png" /></a></p>
+        </div>
+    </div>
+    <!-- ***** Popup End ***** -->
+
+    <div class="content">
+        <article class="post tag-cobalt-strike tag-cobalt-strike-profile-generator">
+
+     
+     <div class="breadcrumb-area bg-img bg-black-overlay section_padding_100" style="background-color: #070a57;">
+         <div class="container">
+             <div class="row justify-content-center">
+                 <div class="col-12 col-lg-6">
+                     <div class="breadcrumb-content text-center">
+                         <h2>Customizing C2Concealer - Part 1</h2>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <div class="apland-blog-area section_padding_100_50">
+        <div class="container">
+            <div class="row justify-content-center">
+               <div class="col-12 col-sm-10 col-md-9 col-lg-8">
+                    <!-- Blog Post Area -->
+                    <div class="single-blog-post post-content">
+                        <span class="post-date">12 July 2021</span>
+                        <h1 class="mb-3">Customizing C2Concealer - Part 1</h1>
+                        <p><p>About a year ago, we publicly released <strong>our C2 malleable profile generator for Cobalt Strike, <a href="https://github.com/FortyNorthSecurity/C2concealer">C2Concealer</a></strong>. You can read the <a href="https://fortynorthsecurity.com/blog/introducing-c2concealer/">initial blog post here</a>.</p><p>In the GitHub Readme page and the initial blog post, we included some information on how to modify C2Concealer to change the default values used to build the malleable profiles. However, while teaching our <a href="https://fortynorthsecurity.com/intrusion-operations-syllabus">Intrusion Operations course</a> recently, several students asked for a blog post detailing how to customize the tool. So, here it is.</p><p><strong>In Part I (this post), we'll discuss customizing the data lists</strong>.</p><p><a href="https://fortynorthsecurity.com/blog/customizing-c2concealer-part-ii/">In Part II</a>, we'll look at additional places within C2Concealer to customize. </p><h2 id="c2concealerdatadnspy"><a href="https://github.com/FortyNorthSecurity/C2concealer/blob/master/C2concealer/data/dns.py">/C2Concealer/data/dns.py</a></h2><p><strong>Description</strong>: These are the subdomains that are used for DNS-based beacon activities. There are two python lists in this file, "subdomains" and "normal_subdomains". </p><ul><li>"subdomains" is used to <strong>provide a value for DNS TXT-based payload staging</strong>. In the existing list, we used classic Name Server style values, like "ns01" and "ns02". </li><li>"normal_subdomains" is used to <strong>provide a value for DNS beacon communications </strong>and consists of a random list of tech words like "test" and "online" and "remote".</li></ul><p><strong>Ideas for New Values</strong>: You could change these to any common-looking subdomain. The easiest change is to grab a chunk of subdomains from a <a href="https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/shubs-subdomains.txt">massive DNS wordlist like from SecLists</a> and just throw some of them into those two python dictionaries.</p><h2 id="c2concealerdatafiletypeprependpy"><a href="https://github.com/FortyNorthSecurity/C2concealer/blob/master/C2concealer/data/file_type_prepend.py">/C2Concealer/data/file_type_prepend.py</a></h2><p><strong>Description</strong>: When you issue a command from Cobalt Strike, an HTTP-based beacon will receive an HTTP response with the tasking information. We get HTTP responses all the time. When you visited this blog post, your browser issued an HTTP GET request for the HTML for this page and our server replied back with the HTML (and CSS and JS). Cobalt Strike would include the beacon tasking orders in the HTTP Response pages. To blend into normal HTTP response traffic, <strong>we captured some common JavaScript, CSS and HTML server response pages</strong>. This file "file_type_prepend.py" contains three Python lists "js", "css" and "html". Each list contains multiple string elements that are basically just a string of the first part of a common JS, CSS or HTML response page. For example, the first js list element is the start of the jQuery version 3.4.1 code. We just proxied a page that required jQuery and grabbed the first ten lines of text and copied it into this Python list.</p><p><strong>Ideas for New Values</strong>: Open up Burp. Proxy some traffic from commonly visited sites that would fit your target environment. For example, the target company's home page or Google or CNN. Review some of the HTML, CSS and JS resources that are loaded. Grab the first ten lines and swap them in for the existing values in the Python lists. </p><p><em>A couple important notes:</em></p><ul><li>Don't grab too much text from the proxied traffic. Try to match the length we already have in there.</li><li>Your string of HTML, CSS or JS needs to be enclosed by double quotes ("). Escape all single quotes (\'). Change all double quotes inside the string to single quotes and then escape them (\'). This has to do with how Cobalt Strike will process these values.</li></ul><h2 id="c2concealerdataparamspy"><a href="https://github.com/FortyNorthSecurity/C2concealer/blob/master/C2concealer/data/params.py">/C2Concealer/data/params.py</a></h2><p><strong>Description</strong>: This file has two Python lists "common_params" and "words". </p><ul><li>"common_params" contains a bunch of ... <strong>common parameters that you'd find in HTTP interactions</strong> (whether in a GET request or POST request). </li><li>"words" is literally just a wordlist that is used to <strong>provide cookie names and values in the HTTP-based Staged payload response</strong>.</li></ul><p><strong>Ideas for New Values: </strong>This <a href="https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/burp-parameter-names.txt">SecLists file</a> is a good start for some common parameter values. The wordlist can be built using anything you'd like, common words in your language of choice, randomly generated tech-y words, or run <a href="https://github.com/digininja/CeWL">CeWL</a> against a few websites. </p><p><em>Pro Tips:</em></p><ol><li>You can change the corresponding values for the parameters randomly grabbed from the "common_params" list. For example, in the file <a href="https://github.com/FortyNorthSecurity/C2concealer/blob/master/C2concealer/components/getclient.py">/C2Concealer/components/getclient.py</a> on line 78, you'll see two hardcoded values "true" and "false". These could literally be any value. Don't make them too large, but consider adding "null" or "zero" or "3485". </li><li>You can change how the values drawn from the "words" dictionary are encoded to provide cookie names and values in lines 47-54 in the file <a href="https://github.com/FortyNorthSecurity/C2concealer/blob/master/C2concealer/components/stagerserver.py">/C2Concealer/components/stagerserver.py</a>.</li></ol><h2 id="c2concealerdatapostexpy"><a href="https://github.com/FortyNorthSecurity/C2concealer/blob/master/C2concealer/data/post_ex.py">/C2Concealer/data/post_ex.py</a></h2><p><strong>Description</strong>: This is a small Python list containing a <strong>list of processes which we will use in fork+run operations</strong>. Meaning, we'll spawn these processes, conduct our post-exploitation jobs in them and then tear them down.</p><p>The code driving the usage of this list, looks like this.</p><pre><code class="language-Python">spawn_processes = ['runonce.exe','svchost.exe','regsvr32.exe','WUAUCLT.exe']
+
+process = str(random.choice(spawn_processes))
+spawnto_x86 = "%windir%\\\\syswow64\\\\" + process
+spawnto_x64 = "%windir%\\\\sysnative\\\\" + process</code></pre><p><strong>Ideas for New Values</strong>: You can add a whole bunch of different processes in here, but a few things to keep in mind:</p><ol><li>The process must be located on all versions of Windows that you'll be operating on.</li><li>As the code is written, a process by the same name must exist in both the syswow64 and system32 directories.</li><li>Some processes are not good for these post-exploitation jobs. The best way to test this is to manually insert a process name into a C2 profile, spin up a teamserver, get a beacon and then execute some long-running post-exploitation jobs. I know it's a pain to do all that work, but trust us, we've struggled for hours trying to understand why our post-exploitation jobs weren't working, when everything else was, only to realize we chose a bad process for fork+run processes.</li><li>As an example, check out mstsc.exe and logman.exe.</li></ol><h2 id="c2concealerdataregheaderspy"><a href="https://github.com/FortyNorthSecurity/C2concealer/blob/master/C2concealer/data/reg_headers.py">/C2Concealer/data/reg_headers.py</a></h2><p><strong>Description</strong>: There are <strong>multiple python lists in this file</strong>, but they're <strong>all straightforward and related to HTTP request or response headers</strong>.</p><ul><li>"server" - common HTTP response header values for the "server" header</li><li>"cookie_prefixes" - common cookie names</li><li>"cookie_suffixes" - common cookie suffixes related to the security and scope of the cookies </li><li>"user_agent" - common client user-agent values</li><li>"accept" - file types accepted by client browser when sending an HTTP request</li><li>"accept_stager" - files types accepted by the client browser when staging over HTTP</li><li>"accept_encoding" - encoding formats accepted by the client's browser in HTTP requests</li><li>"accept_language" - languages accepted by the client's browser in HTTP requests</li><li>"content_encoding" - in HTTP responses the encoding of the content</li></ul><p>All of these values are just window dressing, meaning we're just trying to blend into normal HTTP traffic for our beacon communications. None of them actually impact anything in our operations. As a result, we can change them to any acceptable value.</p><p><strong>Ideas for New Values</strong>: First, here is a good page on Wikipedia <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">detailing a bunch of different header values</a>. Second, here are some resources for each list:</p><ul><li>"server" - We couldn't find a massive list, but I'm sure one exists. There's a couple options - use Burp and browse some websites to see what values they display. Or get a list of server versions, <a href="  https://www.cvedetails.com/version-list/45/66/1/Apache-Http-Server.html?order=0">like this one for Apache</a>, and build a dictionary using values for Nginx, Apache, IIS, etc. Make sure you consider how old the server versions are because some of old ones are very infrequent now.</li><li>"cookie_prefixes" - Open up Burp, log into a few websites, check out the cookies they use. </li><li>"cookie_suffixes" - we won't need to change this list, unless you want to change the path value</li><li>"user_agent" - <a href="https://techblog.willshouse.com/2012/01/03/most-common-user-agents/">This list is great.</a></li><li>"accept" - <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept">Mozilla's page on the accept header</a> provides background and formatting and then <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types">Mozilla's page on Mime Types helps with values</a></li><li>"accept_stager" - <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept">Mozilla's page on the accept header</a> provides background and formatting and then <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types">Mozilla's page on Mime Types helps with values</a></li><li>"accept_encoding" - <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding">Mozilla's page on Accept-Encoding</a></li><li>"accept_language" - <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language">Mozilla's page on Accept-Language</a></li><li>"content_encoding" - <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding">Mozilla's page on Content-Encoding</a></li></ul><h2 id="c2concealerdatasmbpy"><a href="https://fortynorthsecurity.com/C2Concealer/data/smb.py">/C2Concealer/data/smb.py</a></h2><p><strong>Description</strong>: This file contains <strong>one Python dictionary consisting of SMB pipenames</strong>, which are used for SMB Beacon's peer-to-peer communication. You'll notice each dictionary element is a string with a word and underscore and two hashtag signs. Ex: word_##. When Cobalt Strike grabs these values, each # is replaced with a random hex value.</p><p><strong>Ideas for New Values</strong>: We'd suggest coming up with some tech sounding words and then just creating a small list, like "sorting_##", "binomial_##", "rev_##". You could also list all named pipes currently in use on your system with the following PowerShell command and attempt to use those in your list. Just remember to add in "_##" after whatever word is included.</p><pre><code class="language-Powershell">[System.IO.Directory]::GetFiles("\\.\\pipe\\")</code></pre><h2 id="c2concealerdatastagepy"><a href="https://fortynorthsecurity.com/C2Concealer/data/smb.py">/C2Concealer/data/stage.py</a></h2><p><strong>Description: </strong>There are two Python lists in here related to staging. </p><ul><li>The list "transform_names" is a list of <strong>tech-sounding strings that are used to replace the string "ReflectiveLoader" in the beacon DLL</strong>. </li><li>The list "binary_types" is a <strong>list of dictionaries</strong>. <strong>Each dictionary entry contains two key/value pairs</strong>. The "name" key corresponds to a file type extension (ex jpg). The "content_type" key corresponds to the file type's mime type (ex image/jpeg). The "name" value is used to append to the stager's URL. The mime type value is used in the Content-Type server response header for the staged DLL beacon. In case that was confusing, let's walk through an example. If we select the "jpg" entry, then the stager response Content-Type will be "image/jpeg" and the URL the client reaches out to for the beacon DLL will be /whatever/something.<strong>jpg</strong>. The values in this list are  file types that wouldn't look too odd having binary or base64-encoded data embedded. </li></ul><p><strong>Ideas for New Values</strong>: Get creative and come up with some additional strings for replacing "ReflectiveLoader" in the beacon DLL. Keep the length to the same length as "ReflectiveLoader"...don't go over 16 characters. If you wan to add to the "binary_types" list, also edit the <a href="https://github.com/FortyNorthSecurity/C2concealer/blob/3630a87e56a1e36ea0d907903fc9b7460419e71f/C2concealer/profile.py#L75">consistencyCheck function in the profile.py file</a>, and include an extra elif statement(s) to append the relevant file type to the stager URL.</p><h2 id="c2concealerdatatransformpy"><a href="https://github.com/FortyNorthSecurity/C2concealer/blob/master/C2concealer/data/transform.py">/C2Concealer/data/transform.py</a></h2><p><strong>Description</strong>: A Python list of data transformation functions. This is largely set by Cobalt Strike, so unless they update the documentation with additional functions, you can skip this.</p><p><strong>Ideas for New Values</strong>: n/a</p><h2 id="c2concealerdataurlspy"><a href="https://github.com/FortyNorthSecurity/C2concealer/blob/master/C2concealer/data/urls.py">/C2Concealer/data/urls.py</a></h2><p><strong>Description:</strong> This Python file contains 3 lists of </p><ul><li>"file_types" is a list of <strong>file types that get appended to URLs for various HTTP-based communications</strong>.</li><li>"urls" is a list of <strong>random URL subpaths</strong> that could be included in various components of HTTP-based stagers and beacon communications. </li><li>"stager_urls" is a list of  <strong>URL subpaths that are only used with stagers</strong>. This list was built so it'd seem like a natural subpath to server the beacon DLL file (which contains encoded binary data being sent in it). As an example, the value "image_directory" is in here, so if we serve the beacon DLL as a .jpg file, it'd make sense.</li></ul><p><strong>Ideas for New Values</strong>:</p><ul><li>"file_types" could be expanded to include all types of files, but they're only used in plaintext communications, so avoid images, audio, etc. Stick with things like "html", "php", "asp", etc.</li><li>"urls" should be a massive list. Like 100 lines long. Just go grab a whole bunch of different commonly seen subpaths within a URL. This<a href="https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/common.txt"> SecLists file</a> is a good starting point (don't use any values that end in a file extension).</li><li>For "stager_urls", we'd recommend looking at that SecLists file recommended right above and look for any good file paths that might be related to files that could contain binary data. For example, "static" or "media". Also, you can combine multiple subpaths into one string, like "static/media". That will eventually turn into: http://domain.com/static/media/randomURL_from_urls_list</li></ul><p>That's all for this post. In Part II (coming soon), we'll look at customizing values in the functions that build the malleable profiles. This first post is the easiest and quickest impact. The second post will require more patience to customize, as well as more consideration for appropriate values, but <strong>both types of customization are what we use internally on our private version</strong>.</p><p>If you have any feedback, we'd love to hear it! As always, you can reach us via <a href="https://twitter.com/FortyNorthSec">Twitter</a>, <a href="https://www.linkedin.com/company/fortynorth-security">LinkedIn</a>, and through our <a href="https://www.fortynorthsecurity.com/contact">website</a>.</p></p>
+                    </div>
+               </div>
+          </div>
+     </div>
+
+
+</article>
+    </div>
+
+    <!-- ***** Footer Area Start ***** -->
+    <footer class="footer_area">
+        <div class="footer_bottom_area">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Social Area -->
+                    <div class="col-12">
+                        <div class="footer_social_area section_padding_100_0">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Github"><i class="fa fa-github"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                        <!-- Footer Menu Area -->
+                        <div class="footer_menu">
+                            <ul>
+                               <li><a href="https://fortynorthsecurity.com/our-story">Our Story</a></li>
+                                <li><a href="https://fortynorthsecurity.com/privacy">Privacy Policy</a></li>
+                                <li><a href="https://fortynorthsecurity.com/terms">Term &amp; Conditions</a></li>
+                                <li><a href="https://fortynorthsecurity.com/vulnerability">Vulnerability Disclosure</a></li>
+                                <li><a href="https://fortynorthsecurity.com/contact">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer_copywrite_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Footer Copwrite Area -->
+                        <div class="footer_bottom text-center">
+                            <p>Made with <i class="fa fa-heart"></i> by <a href="#">FortyNorth Security</a></p>
+                            <p>&copy; FortyNorth Security, LLC. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ***** Footer Area End ***** -->
+
+    <!-- jQuery(necessary for all JavaScript plugins) -->
+    <script src="https://fortynorthsecurity.com/static/js/jquery.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/popper.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/bootstrap.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/owl.carousel.min.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/waypoints.min.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/jquery.easing.min.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/default/classy-nav.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/default/sticky.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/default/mail.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/default/scrollup.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/default/one-page-nav.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/jarallax.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/jarallax-video.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/jquery.counterup.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/jquery.countdown.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/jquery.magnific-popup.min.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/wow.min.js"></script>
+    <!-- Active js -->
+    <script src="https://fortynorthsecurity.com/static/js/default/active.js"></script>
+    <!-- Modal -->
+    <script type="text/javascript" src="/static/js/modal.js"></script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title  -->
+    <title>Customizing C2Concealer - Part 2</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="https://fortynorthsecurity.com/static/img/core-img/favicon.ico">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="https://fortynorthsecurity.com/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/modal.css">
+
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/6280473.js"></script>
+    <meta name="description" content="Are you ready for further C2Concealer customization? Let&#x27;s dive in." />
+    <link rel="canonical" href="https://fortynorthsecurity.com/blog/customizing-c2concealer-part-ii/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://fortynorthsecurity.com/blog/customizing-c2concealer-part-ii/amp/" />
+    
+    <meta property="og:site_name" content="FortyNorth Security Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Customizing C2Concealer - Part 2" />
+    <meta property="og:description" content="Are you ready for further C2Concealer customization? Let&#x27;s dive in." />
+    <meta property="og:url" content="https://fortynorthsecurity.com/blog/customizing-c2concealer-part-ii/" />
+    <meta property="og:image" content="https://fortynorthsecurity.com/blog/content/images/2021/08/FortyNorth-Blog-Posts--1-.png" />
+    <meta property="article:published_time" content="2021-08-02T12:32:38.000Z" />
+    <meta property="article:modified_time" content="2021-08-02T12:32:38.000Z" />
+    <meta property="article:publisher" content="https://www.facebook.com/FortyNorthSec" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Customizing C2Concealer - Part 2" />
+    <meta name="twitter:description" content="Are you ready for further C2Concealer customization? Let&#x27;s dive in." />
+    <meta name="twitter:url" content="https://fortynorthsecurity.com/blog/customizing-c2concealer-part-ii/" />
+    <meta name="twitter:image" content="https://fortynorthsecurity.com/blog/content/images/2021/08/FortyNorth-Blog-Posts--1--1.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Joe Leon" />
+    <meta name="twitter:site" content="@FortyNorthSec" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="512" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "FortyNorth Security Blog",
+        "url": "https://fortynorthsecurity.com/blog/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://static.ghost.org/v1.0.0/images/ghost-logo.svg"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Joe Leon",
+        "url": "https://fortynorthsecurity.com/blog/author/fortynorth/",
+        "sameAs": []
+    },
+    "headline": "Customizing C2Concealer - Part 2",
+    "url": "https://fortynorthsecurity.com/blog/customizing-c2concealer-part-ii/",
+    "datePublished": "2021-08-02T12:32:38.000Z",
+    "dateModified": "2021-08-02T12:32:38.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://fortynorthsecurity.com/blog/content/images/2021/08/FortyNorth-Blog-Posts--1-.png",
+        "width": 1024,
+        "height": 512
+    },
+    "description": "Are you ready for further C2Concealer customization? Let&#x27;s dive in.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://fortynorthsecurity.com/blog/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 4.48" />
+    <link rel="alternate" type="application/rss+xml" title="FortyNorth Security Blog" href="https://fortynorthsecurity.com/blog/rss/" />
+    <script defer src="https://unpkg.com/@tryghost/portal@~1.22.0/umd/portal.min.js" data-ghost="https://fortynorthsecurity.com/blog/" crossorigin="anonymous"></script><style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style>
+    <script defer src="/blog/public/cards.min.js?v=8ca580996d"></script><style>:root {--ghost-accent-color: #15171A;}</style>
+    <link rel="stylesheet" type="text/css" href="/blog/public/cards.min.css?v=8ca580996d">
+
+</head>
+
+<body class="apland-khulna-version post-template">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="apland-load"></div>
+    </div>
+
+    <!-- ***** Header Start ***** -->
+    <header class="header_area white-nav">
+        <div class="main_header_area">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <nav class="classy-navbar justify-content-between" id="aplandNav">
+
+                        <!-- Logo -->
+                        <a class="nav-brand" href="/"><img src="https://fortynorthsecurity.com/static/img/fortynorth-img/fn-white-orange.png" style="max-width: 250px !important" alt=""></a>
+			<!-- 
+                        <a class="nav-brand" href="https://fortynorthsecurity.com/"><span style='color: #2f5bea; font-weight: 400; letter-spacing: -1px'>FortyNorth</span> <span style='font-weight: 500; color: white !important'>Security</span></a>                                      
+			-->
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul id="corenav">
+                                    <li><a href="" style="pointer-events: none">Assessments</a>
+                                        <ul class="dropdown">
+                                            <li><a href="https://fortynorthsecurity.com/red-team-assessments">Red Team Assessments</a></li>
+                                            <li><a href="https://fortynorthsecurity.com/penetration-testing">Penetration Testing</a></li>
+                                            <li><a href="https://fortynorthsecurity.com/web-application-testing">Web Application Testing</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="" style="pointer-events: none">Training</a>
+                                        <ul class="dropdown">
+                                            <li><a href="https://fortynorthsecurity.com/public-training">Public Training</a></li>
+                                            <li><a href="https://fortynorthsecurity.com/private-training">Private Corporate Training</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="https://fortynorthsecurity.com/blog">Blog</a></li>
+                                    <li><a href="https://fortynorthsecurity.com/our-story">Our Story</a></li>
+                                    <li><a href="https://fortynorthsecurity.com/contact">Contact</a></li>
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header End ***** -->
+
+        <!-- ***** Popup Start ***** -->
+    <div id="open-modal" class="modal-window">
+        <div>
+            <a href="#" title="Close" class="modal-close">Close</a>
+            <h1>FortyNorth acquired by Red Siege!<h1>
+            <p>We are happy to announce that FortyNorth Security has been acquired by Red Siege! Riskatto remains a separate product owned and operated by the creators of the product. Details on the announcment can be found <a href="https://redsiege.com/blog/2023/06/red-siege-acquires-fortynorth-security/">here</a>.</p>
+            <div><small>Check out 👇</small></div>
+	    <p><a href="https://redsiege.com">Red Siege<br/><img src="https://redsiege.com/wp-content/uploads/2023/06/redsiege-logo-black-850-187.png" /></a></p>
+	    <p><a href="https://riskatto.com">Riskatto<br/><img src="https://fortynorthsecurity.com/static/img/fortynorth-img/riskatto_logo_purple.png" /></a></p>
+        </div>
+    </div>
+    <!-- ***** Popup End ***** -->
+
+    <div class="content">
+        <article class="post">
+
+     
+     <div class="breadcrumb-area bg-img bg-black-overlay section_padding_100" style="background-color: #070a57;">
+         <div class="container">
+             <div class="row justify-content-center">
+                 <div class="col-12 col-lg-6">
+                     <div class="breadcrumb-content text-center">
+                         <h2>Customizing C2Concealer - Part 2</h2>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <div class="apland-blog-area section_padding_100_50">
+        <div class="container">
+            <div class="row justify-content-center">
+               <div class="col-12 col-sm-10 col-md-9 col-lg-8">
+                    <!-- Blog Post Area -->
+                    <div class="single-blog-post post-content">
+                        <span class="post-date">02 August 2021</span>
+                        <h1 class="mb-3">Customizing C2Concealer - Part 2</h1>
+                        <p><p>If you haven't read <a href="https://fortynorthsecurity.com/blog/customizing-c2concealer/">Part I</a>, we recommend starting there. If you're ready for further C2Concealer customization, then let's dive in. </p><p>The bulk of C2Concealer's operations are done in the subdirectory <strong>/components</strong>. Each file in that directory corresponds to a particular block within the c2 malleable profile. For example, there is a file for DNS Options configuration named <strong>/components/dnsoptions.py</strong>. </p><p>Each of these component files contains a Python class with two  functions - <strong>printify</strong> and <strong>randomizer</strong>. <strong>Printify</strong>() outputs a string of all our relevant configurations, which gets appended to the final c2 malleable profile. We can skip this function. <strong>Randomizer</strong>() is where we can make additional customizations. This function generates our configurations by grabbing data from the <strong>/data</strong> directory (discussed in Part I), randomly generating values (like integers) and using hardcoded data. Since we already reviewed the <strong>/data</strong> directory customizations, we'll look at making changes to the random() functions and hardcoded values in the various component files.</p><p><strong>This post covers half of the files in the /components directory</strong>. Since there's a lot of options to customize and this post got quite long, we'll publish a third post (Part III), which will cover the rest.</p><h2 id="dnsoptionspy">dnsoptions.py</h2><p><strong>Description</strong>: This file creates our global DNS options. </p><p><strong>Customizable Options</strong>:</p><pre><code class="language-Python">ip_num = list(range(1,9)) + list(range(11,171)) + list(range(173,191)) + list(range(193,254))
+
+##Customize any of the options below
+self.dns_idle = ".".join(map(str, (random.choice(ip_num) for _ in range(4))))
+self.maxdns = str(random.randint(240,255))
+self.dns_sleep = str(random.randint(100,150))
+self.dns_max_txt = str(252)
+self.dns_ttl = str(3600)</code></pre><p>You can customize any of the 5 DNS option values above:</p><ul><li><strong>dns_idle</strong> is the "<a href="https://www.cobaltstrike.com/help-malleable-c2">IP address used to indicate no tasks are available to DNS Beacon</a>". C2Concealer builds a list of most numbers between 1 and 254 (with the exception of any numbers that start a private IP range address, like 10, 192, etc). Then the tool randomly builds an IP address. You could change this, but it's sufficiently random, that we'd suggest leaving it alone.</li><li><strong>maxdns</strong> is the "<a href="https://www.cobaltstrike.com/help-malleable-c2">Maximum length of hostname when uploading data over DNS (0-255)</a>". Right now the value is a random integer between 240 and 255. You could shift that range anyway you'd like as long as you're in between 0 and 255; however, larger values facilitate faster data exfiltration.</li><li><strong>dns_sleep</strong> is the number of milliseconds between each individual DNS request. Presumably you'd make this a larger value, if you suspect the target network is doing a lot of DNS monitoring. C2Concealer grabs a random integer between 100 and 150 and uses that as the value. You could easily change this range, either closer to zero or farther away from zero. Totally up to you. We don't recommend making it too large of a value (say over 300 or 500), but it's up to you.</li><li><strong>dns_max_txt</strong> is the "<a href="https://www.cobaltstrike.com/help-malleable-c2">maximum length of DNS TXT responses to tasks</a>". The max value here should be 255; however, you could make this any value between 0 and 255. We recommend a larger value, since it will facilitate faster communications. Consider generating a random integer for this value, somewhere between 200 and 255.</li><li><strong>dns_ttl</strong> is the "<a href="https://www.cobaltstrike.com/help-malleable-c2">TTL for DNS replies</a>". A valid integer would do great here. We suggest removing the hardcoded value and creating a range, like 1 to 255. </li></ul><h2 id="getclientpy">getclient.py</h2><p><strong>Description</strong>: Builds configurations for the http-get client section of the profile.</p><p><strong>Customizable Options</strong>:</p><p>You can get creative with this section and add in any headers that you'd like. As is, C2Concealer includes the following HTTP GET headers: 'Host', 'User-Agent', 'Connection','Accept', 'Accept_Encoding', 'Accept_Language'. </p><p>We recommend adding in new headers and values. To add in a new header, take the following steps:</p><ol><li>In the __init__ function, define a new variable for the header. The variable name should reflect how the header name should be sent in an HTTP request. Meaning it should be capitalized. And if there is a dash in the header name, since we can't add a dash here, add an underscore "_" instead. Later in the code, the underscores will be changed to a dash. For example, in the code below, we added an "If-Match" header by creating the self.If_Match variable.</li><li>Add the new header name to the self.headerList Python list.</li></ol><pre><code>def __init__(self, name, host):
+
+	##Existing headers
+    self.Host = host
+    self.Accept = None
+    self.Accept_Encoding = None
+    self.Accept_Language = None
+    self.Connection = 'close'
+    
+    ##New headers
+    self.Authorization = None
+    self.If_Match = None
+
+    self.headerList = ['Host', 'Connection','Accept', 'Accept_Encoding', 'Accept_Language', 'Authorization', 'If_Match']
+</code></pre><p>3. Decide if you want the header to be there in every profile or only some of them. If you only want it in some of them, then add the header name to the self.optionalHeaders Python list and then add in logic near lines 62-68 for what value to give the header if it's chosen for inclusion in the profile. The way this works is every time a profile is generated, it will choose between 0 and 2 optional headers and add them into the profile. If the header is to be included in every profile, then define its value anywhere else in the randomizer function.</p><p>One other area to change is line 78. Since this is a HTTP GET request, we can add HTTP GET URL parameters. As is, these parameters are randomly generated from a list in a <strong>/data</strong> file and then defined as either <strong>true </strong>or <strong>false</strong> in line 78. You could make this value to anything you want. Just don't make it too long. </p><h2 id="getserverpy">getserver.py</h2><p><strong>Description</strong>: Builds configurations for the http-get server section of the profile. This is where beacon tasking information is sent.</p><p><strong>Customizable Options</strong>:</p><p>The main customization for this section is similar to the <strong>getclient.py</strong> header customizations. C2Concealer already adds the headers 'Status','Connection','Content_Type', and 'Server'. Consider adding another header or two. Follow steps 1-3 from the <strong>getclient.py</strong> section for adding a header (just note that there are no optional headers, so unless you add that logic into the randomizer function, you'll be adding the new headers in for all http-get server responses.)</p><h2 id="globaloptionspy">globaloptions.py</h2><p><strong>Description:</strong> A selection of global malleable profile options.</p><p><strong>Customizable Options</strong>: </p><p>All of these global options could be changed rather easily.</p><ul><li><strong>sample_name</strong> is just the name of this profile. Right now it's a random 8 character value built from a UUID. This has no impact on the profile, but you could easily change this to keep better track of your profiles.</li><li><strong>sleeptime </strong>is just the default time the beacon sleeps. The value is in milliseconds. C2Concealer sets this value to a random integer between 55000ms and 65000ms. You could easily change this range, or create a static value.</li><li><strong>jitter</strong> is the variance with which a beacon sleeps. C2Concealer sets this value to an add number between 37 and 45 (which stands for 37% to 45%). You could change this to anywhere between 0 and 99.</li><li><strong>tcp_port </strong>is the port a TCP beacon listens on. The default value for all Cobalt Strike instances is port 4444. C2Concealer defaults to a random integer somewhere in the following range: 1024-10000, with the exception of 4443-4446. The idea was port 4444 might be well documented in its use with Cobalt Strike, so we ensured the randomizer function avoided 4444 and a few integers around it. This port value could be any valid ephemeral port number though, so feel free to make this range whatever you want between 1024 and 65535.</li></ul><h2 id="httpconfigpy">httpconfig.py</h2><p><strong>Description</strong>: Global HTTP communications options. </p><p><strong>Customizable Options:</strong> Nothing to do here.</p><h2 id="postclientpy">postclient.py</h2><p><strong>Description:</strong> Settings for when the beacon POSTS data in an HTTP POST request to the team server.</p><p><strong>Customizable Options:</strong> </p><p>Follow the same guidance for <strong>getclient.py</strong> regarding adding new headers.</p><p>Additionally, beacon session id information is sent in a header, so that the teamserver knows which beacon session to attribute the POSTed information. As C2Concealer is currently written, the beacon session ID information is always sent in a cookie called <strong>__session__id</strong>. This means every HTTP POST request from a beacon to the team server, there's a header that looks like this:</p><pre><code>Cookie: __session__id=beacon_session_id_value</code></pre><p>It'd be better to make the cookie name associated with the beacon session id a dynamic value, so that it's different on every engagement. Also, there's no restriction that says it has to be in a cookie; consider adding this session ID to a different header. We recommend using a legitimate, often-seen header for this, like <strong>If-Match </strong>for example.</p><h2 id="postexpy">postex.py</h2><p><strong>Description:</strong> Settings for post-exploitation jobs.</p><p><strong>Customizable Options</strong>: There's really nothing to change here, unless you want to provide a value of "false" for the obfuscate, smart-inject or amsi-disable settings. By default those three values are "true". </p><hr><p>Alright, that will do it for this post. Stay tuned for Part III, which will finalize the settings that can be changed in the<strong> /components </strong>subfolder within C2Concealer.</p><p>If you have any feedback, we'd love to hear it! As always, you can reach us via <a href="https://twitter.com/FortyNorthSec">Twitter</a>, <a href="https://www.linkedin.com/company/fortynorth-security">LinkedIn</a>, and through our <a href="https://www.fortynorthsecurity.com/contact">website</a>.</p></p>
+                    </div>
+               </div>
+          </div>
+     </div>
+
+
+</article>
+    </div>
+
+    <!-- ***** Footer Area Start ***** -->
+    <footer class="footer_area">
+        <div class="footer_bottom_area">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Social Area -->
+                    <div class="col-12">
+                        <div class="footer_social_area section_padding_100_0">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Github"><i class="fa fa-github"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                        <!-- Footer Menu Area -->
+                        <div class="footer_menu">
+                            <ul>
+                               <li><a href="https://fortynorthsecurity.com/our-story">Our Story</a></li>
+                                <li><a href="https://fortynorthsecurity.com/privacy">Privacy Policy</a></li>
+                                <li><a href="https://fortynorthsecurity.com/terms">Term &amp; Conditions</a></li>
+                                <li><a href="https://fortynorthsecurity.com/vulnerability">Vulnerability Disclosure</a></li>
+                                <li><a href="https://fortynorthsecurity.com/contact">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer_copywrite_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Footer Copwrite Area -->
+                        <div class="footer_bottom text-center">
+                            <p>Made with <i class="fa fa-heart"></i> by <a href="#">FortyNorth Security</a></p>
+                            <p>&copy; FortyNorth Security, LLC. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ***** Footer Area End ***** -->
+
+    <!-- jQuery(necessary for all JavaScript plugins) -->
+    <script src="https://fortynorthsecurity.com/static/js/jquery.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/popper.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/bootstrap.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/owl.carousel.min.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/waypoints.min.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/jquery.easing.min.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/default/classy-nav.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/default/sticky.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/default/mail.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/default/scrollup.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/default/one-page-nav.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/jarallax.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/jarallax-video.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/jquery.counterup.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/jquery.countdown.min.js"></script>
+    <script src="https://fortynorthsecurity.com/static/js/jquery.magnific-popup.min.js"></script>    
+    <script src="https://fortynorthsecurity.com/static/js/wow.min.js"></script>
+    <!-- Active js -->
+    <script src="https://fortynorthsecurity.com/static/js/default/active.js"></script>
+    <!-- Modal -->
+    <script type="text/javascript" src="/static/js/modal.js"></script>
+
+</body>
+
+</html>
+
