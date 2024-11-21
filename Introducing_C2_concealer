@@ -1,0 +1,89 @@
+Introducing C2concealer: a C2 Malleable Profile Generator for Cobalt Strike
+
+C2concealer is a python3 command-line tool that generates c2 malleable profiles for use with Cobalt Strike.
+https://github.com/rsmudge/Malleable-C2-Profiles
+https://github.com/RedSiege/C2concealer
+
+Looking to get up and running quick? Code is available here.
+C2concealer: what's the story?
+
+Red team assessments and penetration tests involve a ton of moving parts and are often severely limited by time constraints. While we believe infrastructure setup is one of the most important aspects of any engagement, it's easy to breeze right through it and re-use past configurations. When it comes to c2 malleable profiles, or the file we use to define our Indicators of Compromise, it's very tempting to just re-use the same profile, test after test.
+
+Even if you have the time, digging through all the disparate resources to discern acceptable values for each attribute in the malleable profile is challenging. So, we usually just make a minor adjustment to an existing profile and move on.
+
+We wanted something better. So about a year ago, we built an internal tool to automate the generation of malleable profiles. You provide a few basic details (like the hostname value, number of http variants and SSL keystore information) and it will spit out a linter-passing profile. It's worked like a charm.
+
+We always wanted to release it to the public, but as I'm sure many of you can relate, we didn't want to jeopardize our operational security by publishing what our Indicators of Compromise will look like. So we shelved the idea of open sourcing it.
+
+A month ago, we found a bit of time and revisited the idea. We decided to build a separate open-source version of the tool. What does that mean? Basically, we went through and seeded the tool with values that are not in our version of the tool. This allows us to provide the community with a very practical tool, while not compromising any of our engagements.
+How does c2concealer work?
+
+We poured over the Cobalt Strike documentation and defined ranges of values that would make sense for each profile attribute. Sometimes that data is as simple as a random integer within some range and other times we needed to build an entire list of default values. Bottom line, we started tool creation with defining all the possible data that would make a valid profile.
+
+Next, we divided each malleable profile section (or block) into a separate .py file. Each .py file contains the logic to select "random" appropriate values for each attribute within the block and then output the block. We combine all profile blocks together, run a few quick consistency checks and then run the profile through the Cobalt Strike linter (c2lint). The output is a profile that should work for your engagements. We always recommend testing the profile (including process injection and spawning) prior to running a campaign.
+
+Check out the repo here:
+How do I use c2concealer?
+Installation
+
+chmod u+x install.sh
+./install.sh
+
+Example Usage
+
+Usage:
+	$ c2concealer --hostname google.com --variant 3
+
+Flags:
+	
+	(optional)
+	--hostname 
+		The hostname used in HTTP client and server side settings. Default is None.
+	--variant 
+		An integer defining the number of HTTP client/server variants to generate. Recommend between 1 and 5. Max 10.
+
+Example Console Output
+
+root@kali:~# c2concealer --variant 1 --hostname google.com
+[i] Searching for the c2lint tool on your system (part of Cobalt Strike). Might take 10-20 seconds.
+[i] Found c2lint in the /opt/cobaltstrike/c2lint directory.
+
+Choose an SSL option:
+1. Self-signed SSL cert (just input a few details)
+2. LetsEncrypt SSL cert (requies a temporary A record for the relevant domain to be pointed to this machine)
+3. Existing keystore
+4. No SSL
+
+[?] Option [1/2/3/4]:
+
+You'll need to select an SSL option. When you run it for the first time, just select "4" to get a feel for how the tool works. Option "2" requires you to set an A record for a domain you control and point it to the IP address of the machine you're running the tool. This is because the tool will download certbot and automatically run the ACME protocol with LetsEncrypt to generate a certificate for use on the assessment on the fly. Option "3" requires a path to a keystore (you can tab-complete that path).
+
+After selecting an SSL option, the tool should just output the c2linter results and save a profile file in the current working directory.
+Customizing c2concealer
+
+The first thing we recommend is forking our repo. The best way to use this tool is to make it your own by seeding the default data dictionaries and lists with additional and/or different values.
+
+The tool is structured in a way that allows users to modify default data attributes in a few places. First in the subdirectory /c2concealer/data/, you'll find several .py files containing lists and dictionaries of default values. Jump in there and modify whatever you see fit.
+
+    dns.py (customize the dns subdomains)
+    file_type_prepend.py (customize how http-get-server repsonses look ... aka c2 control instructions)
+    params.py (two dictionaries containing common parameter names and a generic wordlist)
+    post_ex.py (spawn_to process list...definitely change this one)
+    reg_headers.py (typical http headers like user-agent and server)
+    smb.py (smb pipenames for use when comms go over smb)
+    stage.py (data for changing IOCs related to the stager)
+    transform.py (payload data transformations...no need to change this)
+    urls.py (filetypes and url path components used for building URIs all across the tool...definitely change this)
+
+Second, you can customize various attributes all throughout the profile generation process. As an example, in the file: "/c2concealer/components/stageblock.py", you can change the range from which PE image size value is drawn from (near lines 73-74). Please look through all the different files in the components directory.
+What if I don't want to add my own values?
+
+Totally fine. It will still generate random profiles each time. Eventually, AV vendors might comb through the repo and create signatures based on these default values, but for now, you should be good.
+Support
+
+FortyNorth Security will be actively maintaining c2concealer. If you have any questions or pull requests, you can contact us on Twitter, LinkedIn, Facebook, and of course our website.
+
+Hope this helps!
+
+Written By: Joe Leon
+
