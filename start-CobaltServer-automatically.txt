@@ -1,0 +1,15 @@
+[Unit]
+Description=Cobalt Strike Team Server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestatSec=1
+User=root
+WorkingDirectory=/opt/CobaltStrike
+ExecStart=/opt/CobaltStrike/teamserver 192.168.1.2 Password! c2-profiles/webbug.profile
+
+[Install]
+WantedBy=multi-user.target
