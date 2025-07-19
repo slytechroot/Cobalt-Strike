@@ -1,3 +1,8 @@
+#Modify the service:
+sudo nano /etc/systemd/system/teamserver.service
+
+#Copy & Paste this:
+##############
 [Unit]
 Description=Cobalt Strike Team Server
 After=network.target
@@ -13,3 +18,13 @@ ExecStart=/opt/CobaltStrike/teamserver 192.168.1.2 Password! c2-profiles/webbug.
 
 [Install]
 WantedBy=multi-user.target
+#################
+
+#Reload the systemd manager and check the status of the service:
+sudo systemctl daemon-reload
+sudo systemctl status teamserver.service
+
+#Start the service and check its status:
+sudo systemctl start teamserver.service
+sudo systemctl status teamserver.service
+
