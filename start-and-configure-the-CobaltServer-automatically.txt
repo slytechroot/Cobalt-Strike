@@ -31,3 +31,4 @@ sudo systemctl status teamserver.service
 #Tell the service to start during boot-up:
 sudo systemctl enable teamserver.service
 
+#Reboot the VM to find out if the service worked!!!
